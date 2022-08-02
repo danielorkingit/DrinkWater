@@ -8,14 +8,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Icon drinkicon = Icon(
+    Icons.water_damage_rounded,
+    color: Colors.black,
+  );
   double zerowater = 650;
   double maxwater = 50;
   String weekday = "Monday";
   int dailywateramount = 2000;
   int personalweight = 50;
   int watertoday = 0;
+  int drinkamount = 250;
   TextEditingController personalweightcontroller = TextEditingController();
   TextEditingController personalwateramountcontroller = TextEditingController();
+  TextEditingController wateramountcontroller = TextEditingController();
 
   void calculateimage() {}
 
@@ -35,6 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
       Navigator.pop(context);
       Navigator.pop(context);
     }
+  }
+
+  void drinkchoosestate() {
+    drinkamount = int.parse(wateramountcontroller.text);
+    setState(() {});
+    Navigator.pop(context);
   }
 
   void updatewaterlevel() {}
@@ -71,22 +83,69 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Stack(
           clipBehavior: Clip.none,
           children: [
-            Row(
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.abc_outlined,
-                      color: Colors.black,
-                    ),
-                    onPressed: () => Null),
-              ],
-            ),
             Column(
               children: [
                 SizedBox(
                   height: zerowater,
                 ),
                 Container(child: Image.asset('assets/images/water12.png')),
+              ],
+            ),
+            Column(
+              children: [
+                Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    ),
+                    color: Colors.yellow,
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(1),
+                        child: Text(
+                          "Watergoal ",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40),
+                        ),
+                      ),
+                      SizedBox(width: 70),
+                      Text(
+                        dailywateramount.toString(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 12, 124, 215),
+                            fontSize: 30),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 450),
+                Row(
+                  children: [
+                    SizedBox(width: 110),
+                    IconButton(
+                      icon: Icon(
+                        Icons.add_circle_rounded,
+                        color: Color.fromARGB(255, 1, 26, 46),
+                        size: 150,
+                      ),
+                      onPressed: () => Null,
+                    ),
+                    SizedBox(width: 70),
+                    FloatingActionButton(
+                      backgroundColor: Colors.yellow,
+                      onPressed: () => drinkchoose(),
+                      child: drinkicon,
+                    ),
+                  ],
+                ),
               ],
             ),
           ],
@@ -288,6 +347,39 @@ class _HomeScreenState extends State<HomeScreen> {
             IconButton(
               icon: Icon(Icons.transit_enterexit_outlined),
               onPressed: () => personalwateramountstate(),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  drinkchoose() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          scrollable: true,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0))),
+          content: Form(
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: wateramountcontroller,
+                  decoration: InputDecoration(
+                    labelText: 'Water amount',
+                    icon: Icon(Icons.coffee_rounded),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.transit_enterexit_outlined),
+              onPressed: () => drinkchoosestate(),
             ),
           ],
         );
