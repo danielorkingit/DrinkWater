@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:DrinkWater/Pages/homescreen.dart';
 import 'package:DrinkWater/Pages/stats.dart';
+import 'package:DrinkWater/Pages/privacypolicy.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => HomeScreen(),
         '/stats': (context) => Stats(),
+        '/privacypolicy': (context) => Privacypolicy(),
       },
     );
   }
