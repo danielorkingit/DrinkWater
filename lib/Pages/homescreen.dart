@@ -13,9 +13,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Icon(
-          Icons.panorama_fisheye_outlined,
-          color: Colors.blue,
+        leading: IconButton(
+          icon: Icon(Icons.panorama_fisheye_outlined, color: Colors.black),
+          onPressed: () => Navigator.pushNamed(context, '/profile'),
         ),
         title: Text("Acquaintances",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
