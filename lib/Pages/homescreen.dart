@@ -8,21 +8,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double hstopheight = 100.0;
-  double scaffoldBodyHeight = 0.0;
+  double zerowater = 650;
+  double maxwater = 50;
   String weekday = "Monday";
-  int dailywateramount = 220;
+  int dailywateramount = 2000;
   int personalweight = 50;
+  int watertoday = 0;
   TextEditingController personalweightcontroller = TextEditingController();
   TextEditingController personalwateramountcontroller = TextEditingController();
 
-  void calculatebodyheight() {
-    final fullHeight = MediaQuery.of(context).size.height;
-    final appBar = AppBar(); //Need to instantiate this here to get its size
-    final appBarHeight =
-        appBar.preferredSize.height + MediaQuery.of(context).padding.top;
-    final scaffoldBodyHeight = fullHeight - appBarHeight;
-  }
+  void calculateimage() {}
 
   void personalweightstate() {
     if (personalweightcontroller.text != 0) {
@@ -42,20 +37,21 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void updatewaterlevel() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-            icon: Icon(
-              Icons.coronavirus_sharp,
-              color: Colors.black,
-            ),
-            onPressed: () => {
-                  calculatebodyheight(),
-                  print(scaffoldBodyHeight),
-                }),
+          icon: Icon(
+            Icons.coronavirus_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () => Navigator.pushNamed(context, '/stats'),
+        ),
         title: Text(weekday,
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         actions: [
@@ -70,18 +66,31 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: hstopheight,
-          ),
-          Container(
-            child: Image.asset('assets/images/water12.png'),
-          ),
-          Container(
-            height: 0,
-          )
-        ],
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                    icon: Icon(
+                      Icons.abc_outlined,
+                      color: Colors.black,
+                    ),
+                    onPressed: () => Null),
+              ],
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  height: zerowater,
+                ),
+                Container(child: Image.asset('assets/images/water12.png')),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

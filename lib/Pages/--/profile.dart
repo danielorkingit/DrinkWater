@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
       children: [
         Container(
           margin: EdgeInsets.only(bottom: 120),
-          child: Image.asset("assets/images/19742.jpg"),
+          child: Image.asset("as sets/images/19742.jpg"),
         ),
         Positioned(top: 100, child: buildProfilePicture())
       ],
