@@ -8,20 +8,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String weekday = "Monday";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.panorama_fisheye_outlined, color: Colors.black),
-          onPressed: () => Navigator.pushNamed(context, '/profile'),
+          icon: Icon(
+            Icons.coronavirus_sharp,
+            color: Colors.black,
+          ),
+          onPressed: () => Navigator.pushNamed(context, '/stats'),
         ),
-        title: Text("Acquaintances",
+        title: Text(weekday,
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         actions: [
           IconButton(
-            onPressed: () => Navigator.pushNamed(context, '/settings'),
+            onPressed: () => showSettings(),
             icon: Icon(
               Icons.settings,
               color: Colors.black,
@@ -31,4 +36,35 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  showSettings() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          color: Colors.grey.shade100,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text("hello"),
+                dailyWatterConsumeButton(),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget dailyWatterConsumeButton() => Row(
+        children: [
+          Text(
+            "Hello",
+            style: TextStyle(color: Colors.black),
+          ),
+        ],
+      );
 }

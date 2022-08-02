@@ -1,9 +1,8 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:acquaintances/Pages/homescreen.dart';
-import 'package:acquaintances/Pages/settings.dart';
-import 'package:acquaintances/Pages/profile.dart';
+import 'package:DrinkWater/Pages/homescreen.dart';
+import 'package:DrinkWater/Pages/stats.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,8 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => HomeScreen(),
-        '/settings': (context) => Settings(),
-        '/profile': (context) => Profile(),
+        '/stats': (context) => Stats(),
       },
     );
   }
