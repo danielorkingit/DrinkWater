@@ -49,8 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("hello"),
-                dailyWatterConsumeButton(),
+                Text("Settings"),
               ],
             ),
           ),
@@ -58,13 +57,4 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
-
-  Widget dailyWatterConsumeButton() => Row(
-        children: [
-          Text(
-            "Hello",
-            style: TextStyle(color: Colors.black),
-          ),
-        ],
-      );
 }
