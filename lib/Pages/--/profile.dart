@@ -52,7 +52,9 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget buildContent() => Column(
-        children: [],
+        children: [
+          Text("hello"),
+        ],
       );
 
   Widget buildProfilePicture() => Container(
