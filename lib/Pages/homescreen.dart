@@ -12,7 +12,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Icons.water_damage_rounded,
     color: Colors.black,
   );
-  double zerowater = 650;
+  double i = 0.0;
+  double zerowater = 650.0;
+  double oneml = 0.0;
   double maxwater = 50;
   String weekday = "Monday";
   int dailywateramount = 2000;
@@ -45,11 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void drinkchoosestate() {
     drinkamount = int.parse(wateramountcontroller.text);
+    oneml = 650.0 / drinkamount;
     setState(() {});
     Navigator.pop(context);
   }
 
-  void updatewaterlevel() {}
+  void updatewaterlevel() {
+    i = drinkamount.toDouble() * oneml;
+    watertoday = i.toInt();
+  }
 
   @override
   Widget build(BuildContext context) {
