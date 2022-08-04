@@ -1,4 +1,4 @@
-import 'dart:io';
+// Simple programm to track the daily water intake
 
 import 'package:flutter/material.dart';
 
@@ -10,29 +10,37 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double i = 0.0;
-  double zerowater = 650.0;
-  double oneml = 0.5;
-  double maxwater = 50;
-  String weekday = "Monday";
-  int dailywateramount = 2000;
+  double i = 0.0; // Helper Variable
+  double waterlevel = 650.0; // Hight of the water image
+  double oneml = 0.5; // Calculation of one ml in relation to the waterlevel
+  String weekday = "Monday"; // static weekday
+  int dailywateramount = 2000; // Changeable daily water goal
   int personalweight = 50;
   int watertoday = 0;
-  int drinkamount = 0;
-  String sign = "Watergoal";
+  int drinkamount = 0; // Ml amount of the current drink
+  String sign = "Watergoal"; // Sign at the bottom
   TextEditingController personalweightcontroller = TextEditingController();
   TextEditingController personalwateramountcontroller = TextEditingController();
   TextEditingController wateramountcontroller = TextEditingController();
 
+  void reset() {
+    i = 0;
+    waterlevel = 650;
+    watertoday = 0;
+    drinkamount = 0;
+    setState(() {});
+  }
+
   String drinkamountsign() {
     if (drinkamount == 0) {
-      return "Choose a drink amount!";
+      return "Choose a drink amount!"; // Default sign context
     } else {
-      return drinkamount.toString() + " ml";
+      return drinkamount.toString() + " ml"; // Current drink ml amount
     }
   }
 
   void personalweightstate() {
+    // Set the personal weight
     if (personalweightcontroller.text != 0) {
       personalweight = int.parse(personalweightcontroller.text);
       setState(() {});
@@ -42,31 +50,39 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   double heightcheckercontainer() {
-    if (zerowater < 60) {
-      return 200;
+    // Hight of the water image
+    if (waterlevel < 60) {
+      return 200; // Water image to short => color container
     } else {
       return 0;
     }
   }
 
   void updatewaterlevel() {
-    if (oneml != 0) {
-      i = drinkamount.toDouble() * oneml;
-      watertoday = watertoday + drinkamount.toInt();
-      if (watertoday == dailywateramount) {
+    if (oneml != 0 && watertoday != dailywateramount) {
+      i = drinkamount.toDouble() *
+          oneml; // Calculate the hight of the water image
+      watertoday = watertoday + drinkamount.toInt(); // Update the water level
+      if (watertoday == dailywateramount || watertoday > dailywateramount) {
         sign = "Mission done!";
         dailywateramount = 0;
       }
+      if (watertoday > dailywateramount) {
+        reset();
+      }
       setState(() {
-        zerowater = zerowater - i;
+        waterlevel = waterlevel - i; // Set the hight of the water image
       });
     }
   }
 
   void personalwateramountstate() {
+    // Set the personal daily water amount
     if (personalwateramountcontroller.text != 0) {
       dailywateramount = int.parse(personalwateramountcontroller.text);
-      oneml = 650.0 / dailywateramount.toDouble();
+      oneml = 650.0 /
+          dailywateramount
+              .toDouble(); // Calculate one ml in relation to the hight of the water image
       setState(() {});
       Navigator.pop(context);
       Navigator.pop(context);
@@ -74,7 +90,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void drinkchoosestate() {
-    oneml = 650.0 / dailywateramount.toDouble();
+    oneml = 650.0 /
+        dailywateramount
+            .toDouble(); // Calculate one ml in relation to the hight of the water image
     drinkamount = int.parse(wateramountcontroller.text);
     setState(() {});
     Navigator.pop(context);
@@ -87,18 +105,16 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(
-            Icons.coronavirus_sharp,
-            color: Colors.black,
-          ),
-          onPressed: () => Navigator.pushNamed(context, '/stats'),
+          onPressed: () => reset(),
+          icon: Icon(Icons.restore),
+          color: Colors.black,
         ),
         title: Text(weekday,
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         actions: [
           IconButton(
             onPressed: () {
-              showSettings();
+              showSettings(); // Settings bottom sheet
             },
             icon: Icon(
               Icons.settings,
@@ -115,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Column(
               children: [
                 SizedBox(
-                  height: zerowater,
+                  height: waterlevel,
                 ),
                 Container(child: Image.asset('assets/images/water12.png')),
                 Container(
@@ -141,6 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.all(1),
                         child: Text(
+                          // Bottom sign
                           sign,
                           style: TextStyle(
                               color: Colors.black,
@@ -150,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       SizedBox(width: 70),
                       Text(
-                        dailywateramount.toString(),
+                        dailywateramount.toString(), // Daily water amount
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Color.fromARGB(255, 12, 124, 215),
@@ -164,12 +181,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     SizedBox(width: 110),
                     IconButton(
+                      // Add water
                       onPressed: () => updatewaterlevel(),
                       icon: Icon(Icons.add_circle_outline_rounded),
                       color: Colors.blue,
                       iconSize: 150,
                     ),
                     FloatingActionButton(
+                      // Choose a drink
                       backgroundColor: Colors.yellow,
                       onPressed: () => drinkchoose(),
                       child: Icon(
@@ -182,6 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Stack(
                   children: [
                     Center(
+                      // Drink amount sign
                       child: Container(
                         margin: const EdgeInsets.all(15.0),
                         padding: const EdgeInsets.all(3.0),
@@ -233,6 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Spacer(),
                   IconButton(
+                    // Close sheet
                     onPressed: () => Navigator.pop(context),
                     icon: Icon(
                       Icons.arrow_circle_down_outlined,
@@ -269,6 +290,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(width: 10),
                   IconButton(
+                    // Set water amount
                     onPressed: () => formswateramount(),
                     icon: Icon(Icons.arrow_forward_ios_rounded,
                         color: Colors.black),
@@ -295,6 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(width: 10),
                   IconButton(
+                    // Set weight
                     onPressed: () => formsweight(),
                     icon: Icon(Icons.arrow_forward_ios_rounded,
                         color: Colors.black),
@@ -326,7 +349,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     onPressed: () async {
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, '/privacypolicy');
+                      Navigator.pushNamed(context,
+                          '/privacypolicy'); // Redirect to the privacypolicy page
                     },
                     icon: Icon(Icons.arrow_forward_ios_rounded,
                         color: Colors.black),
@@ -365,7 +389,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.transit_enterexit_outlined),
-              onPressed: () => personalweightstate(),
+              onPressed: () => personalweightstate(), // Update weight
             ),
           ],
         );
@@ -397,7 +421,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.transit_enterexit_outlined),
-              onPressed: () => personalwateramountstate(),
+              onPressed: () => personalwateramountstate(), // Set water goal
             ),
           ],
         );
@@ -430,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.transit_enterexit_outlined),
-              onPressed: () => drinkchoosestate(),
+              onPressed: () => drinkchoosestate(), // Choose drink
             ),
           ],
         );

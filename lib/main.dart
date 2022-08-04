@@ -1,8 +1,7 @@
-// ignore_for_file: deprecated_member_use
+// Main file
 
 import 'package:flutter/material.dart';
 import 'package:DrinkWater/Pages/homescreen.dart';
-import 'package:DrinkWater/Pages/stats.dart';
 import 'package:DrinkWater/Pages/privacypolicy.dart';
 
 void main() {
@@ -16,7 +15,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => HomeScreen(),
-        '/stats': (context) => Stats(),
         '/privacypolicy': (context) => Privacypolicy(),
       },
     );

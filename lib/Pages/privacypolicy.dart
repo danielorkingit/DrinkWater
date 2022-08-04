@@ -1,3 +1,5 @@
+// PrivacyPolicy page
+
 import 'package:flutter/material.dart';
 import 'package:DrinkWater/text/loremipsum.dart';
 
@@ -14,13 +16,13 @@ class Privacypolicy extends StatelessWidget {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           leading: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context), // Navigate to HomeScreen
               icon: Icon(Icons.arrow_back_ios_new),
               color: Colors.blue),
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.all(7),
-          child: Text(ipsum),
+          child: Text(ipsum), // text/loremipsum.dart
         ));
   }
 }
