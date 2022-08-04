@@ -1,30 +1,24 @@
 # DrinkWater
-A simple Python program to welcome somebody with a custom e-mail when the person connects with your WiFi.
+Simple programm to track the daily water intake
 
-## Installation
-### Install dependencies
+## Requierements
+ - Xcode version 13.3 (13E113)
+ - Open developer tools => IOS simulator Version 13.3 (977.2)
+ *- Optional Flutter*
+ 
+## Install and run DrinkWater
 ```bash
-pip3 install sendgrid
+git clone https://github.com/danielorkingit/DrinkWater/
+cd DrinkWater/
 ```
-### Install and run whoisaround
+##Run the programm through Flutter
 ```bash
-git clone https://github.com/danielorkingit/whoisaround/
-cd whoisaround
+flutter run
 ```
-Create a free [Sendgrid account](https://signup.sendgrid.com/) and create a new API Key
-Replace the placeholders with your data
-(API Key, email, message, device ip adress)
-```bash
-python main.py
-```
-### Run whoisaround as a backround service
-```bash
-cd whoisaround
-pythonw main.py
-```
-To kill the process, go to the task-manager (Windows) or the activity monitor (Mac) and search for the Python task.
+##Run the programm directly through Xcode
+Go to the DrinkWater/ios directory
+Open the Runner.xcworkspace in Xcode
+Select your simulator
+Run the programm
 
-
-*A free Sendgrid account is requierd.*
-
-*You can add a custom HTML template within the code and extend the code for adicional usage.*
+*The application is still in the early beta*
