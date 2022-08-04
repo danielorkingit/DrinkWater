@@ -11,11 +11,11 @@ Simple programm to track the daily water intake
 git clone https://github.com/danielorkingit/DrinkWater/
 cd DrinkWater/
 ```
-##Run the programm through Flutter
+### Run the programm through Flutter
 ```bash
 flutter run
 ```
-##Run the programm directly through Xcode
+### Run the programm directly through Xcode
 Go to the DrinkWater/ios directory
 Open the Runner.xcworkspace in Xcode
 Select your simulator
