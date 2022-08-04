@@ -16,9 +16,9 @@ cd DrinkWater/
 flutter run
 ```
 ### Run the programm directly through Xcode
-Go to the DrinkWater/ios directory
-Open the Runner.xcworkspace in Xcode
-Select your simulator
-Run the programm
+Go to the DrinkWater/ios directory <br />
+Open the Runner.xcworkspace in Xcode <br />
+Select your simulator <br />
+Run the programm <br />
 
 *The application is still in the early beta*
