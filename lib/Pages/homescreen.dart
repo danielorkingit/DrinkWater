@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -8,24 +10,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  Icon drinkicon = Icon(
-    Icons.water_damage_rounded,
-    color: Colors.black,
-  );
   double i = 0.0;
   double zerowater = 650.0;
-  double oneml = 0.0;
+  double oneml = 0.5;
   double maxwater = 50;
   String weekday = "Monday";
   int dailywateramount = 2000;
   int personalweight = 50;
   int watertoday = 0;
-  int drinkamount = 250;
+  int drinkamount = 0;
+  String sign = "Watergoal";
   TextEditingController personalweightcontroller = TextEditingController();
   TextEditingController personalwateramountcontroller = TextEditingController();
   TextEditingController wateramountcontroller = TextEditingController();
 
-  void calculateimage() {}
+  String drinkamountsign() {
+    if (drinkamount == 0) {
+      return "Choose a drink amount!";
+    } else {
+      return drinkamount.toString() + " ml";
+    }
+  }
 
   void personalweightstate() {
     if (personalweightcontroller.text != 0) {
@@ -36,9 +41,32 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  double heightcheckercontainer() {
+    if (zerowater < 60) {
+      return 200;
+    } else {
+      return 0;
+    }
+  }
+
+  void updatewaterlevel() {
+    if (oneml != 0) {
+      i = drinkamount.toDouble() * oneml;
+      watertoday = watertoday + drinkamount.toInt();
+      if (watertoday == dailywateramount) {
+        sign = "Mission done!";
+        dailywateramount = 0;
+      }
+      setState(() {
+        zerowater = zerowater - i;
+      });
+    }
+  }
+
   void personalwateramountstate() {
     if (personalwateramountcontroller.text != 0) {
       dailywateramount = int.parse(personalwateramountcontroller.text);
+      oneml = 650.0 / dailywateramount.toDouble();
       setState(() {});
       Navigator.pop(context);
       Navigator.pop(context);
@@ -46,15 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void drinkchoosestate() {
+    oneml = 650.0 / dailywateramount.toDouble();
     drinkamount = int.parse(wateramountcontroller.text);
-    oneml = 650.0 / drinkamount;
     setState(() {});
     Navigator.pop(context);
-  }
-
-  void updatewaterlevel() {
-    i = drinkamount.toDouble() * oneml;
-    watertoday = i.toInt();
   }
 
   @override
@@ -95,6 +118,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: zerowater,
                 ),
                 Container(child: Image.asset('assets/images/water12.png')),
+                Container(
+                  color: Color.fromARGB(96, 33, 149, 243),
+                  height: heightcheckercontainer(),
+                )
               ],
             ),
             Column(
@@ -114,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: EdgeInsets.all(1),
                         child: Text(
-                          "Watergoal ",
+                          sign,
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -132,26 +159,44 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 450),
+                SizedBox(height: 400),
                 Row(
                   children: [
                     SizedBox(width: 110),
                     IconButton(
-                      icon: Icon(
-                        Icons.add_circle_rounded,
-                        color: Color.fromARGB(255, 1, 26, 46),
-                        size: 150,
-                      ),
-                      onPressed: () => Null,
+                      onPressed: () => updatewaterlevel(),
+                      icon: Icon(Icons.add_circle_outline_rounded),
+                      color: Colors.blue,
+                      iconSize: 150,
                     ),
-                    SizedBox(width: 70),
                     FloatingActionButton(
                       backgroundColor: Colors.yellow,
                       onPressed: () => drinkchoose(),
-                      child: drinkicon,
+                      child: Icon(
+                        Icons.coffee_rounded,
+                        color: Colors.black,
+                      ),
                     ),
                   ],
                 ),
+                Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        margin: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Text(
+                          drinkamountsign(),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ],
